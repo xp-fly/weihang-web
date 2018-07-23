@@ -1,0 +1,20 @@
+{
+  "type": "mysql",
+  "host": "127.0.0.1",
+  "port": 3306,
+  "username": "root",
+  "password": "",
+  "database": "weihang_web",
+  "entities": ["src/**/**.entity.ts", "dist/**/**.entity.js"],
+  "migrations": [
+    "src/migration/**.entity{.ts,.js}",
+    "dist/migration/**.entity{.ts,.js}"
+  ],
+  "subscribers": [
+    "src/subscriber/**.entity{.ts,.js}",
+    "dist/subscriber/**.entity{.ts,.js}"
+  ],
+  "synchronize": true,
+  "debug": false,
+  "logging": true
+}
