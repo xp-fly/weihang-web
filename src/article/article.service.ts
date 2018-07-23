@@ -1,7 +1,21 @@
 import {Injectable} from '@nestjs/common';
-import {ArticleEntity} from './article.entity';
+import {ArticleEntity} from './entity/article.entity';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
+import {CreateArticleDto} from './dto/create-article.dto';
+import * as xss from "xss";
+
+const xssOpt = {
+    whiteList: {
+        pre: ['class'],
+        code: ['class'],
+        div: ['class'],
+        span: ['class'],
+        a: ['href'],
+        p: [],
+        img: ['src', 'alt', 'title'],
+    },
+};
 
 @Injectable()
 export class ArticleService {
@@ -24,8 +38,12 @@ export class ArticleService {
         return { list, count };
     }
 
-    async add(article: ArticleEntity): Promise<ArticleEntity> {
-
+    async add(articleDto: CreateArticleDto): Promise<ArticleEntity> {
+        const article = this.articleRepository.create();
+        article.title = articleDto.title;
+        article.content = articleDto.desc;
+        article.content = xss(articleDto.content, xssOpt);
+        return await this.articleRepository.save(article);
     }
 
     async edit(id: number, article: ArticleEntity): Promise<any> {

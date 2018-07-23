@@ -1,7 +1,7 @@
 import {ArticleService} from './article.service';
 import {Module} from '@nestjs/common';
 import {TypeOrmModule} from '@nestjs/typeorm';
-import {ArticleEntity} from './article.entity';
+import {ArticleEntity} from './entity/article.entity';
 import {ArticleController} from './article.controller';
 
 @Module({
