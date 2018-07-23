@@ -2,7 +2,9 @@ import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query} fr
 import {ArticleService} from './article.service';
 import {ArticleEntity} from './entity/article.entity';
 import {CreateArticleDto} from './dto/create-article.dto';
+import { ApiUseTags } from '@nestjs/swagger';
 
+@ApiUseTags('article')
 @Controller('article')
 export class ArticleController {
     constructor(private readonly articleService: ArticleService) {}

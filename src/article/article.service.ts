@@ -3,7 +3,7 @@ import {ArticleEntity} from './entity/article.entity';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
 import {CreateArticleDto} from './dto/create-article.dto';
-import * as xss from "xss";
+import * as xss from 'xss';
 
 const xssOpt = {
     whiteList: {
@@ -42,15 +42,30 @@ export class ArticleService {
         const article = this.articleRepository.create();
         article.title = articleDto.title;
         article.content = articleDto.desc;
+        // 防止xss攻击
         article.content = xss(articleDto.content, xssOpt);
         return await this.articleRepository.save(article);
     }
 
-    async edit(id: number, article: ArticleEntity): Promise<any> {
-        return 0;
+    async edit(id: number, param: ArticleEntity): Promise<any> {
+        const article = this.articleRepository.create();
+        if (param.title) {
+            article.title = param.title;
+        }
+        if (param.content) {
+            article.content = param.content;
+        }
+        if (param.desc) {
+            article.desc = param.desc;
+        }
+        if (!Object.keys(article).length) {
+            return [];
+        }
+        return await this.articleRepository.update(id, article);
+
     }
 
     async remove(id: number): Promise<any> {
-        return 0;
+        return await this.articleRepository.delete(id);
     }
 }

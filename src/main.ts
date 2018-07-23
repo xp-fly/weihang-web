@@ -2,15 +2,26 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {AnyExceptionFilter} from './common/filters/any-exception.filter';
 import {ValidationPipe} from '@nestjs/common';
+import {ResponseTransformInterceptor} from './common/interceptors/response-transform.interceptor';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  // 全局路由前缀
-  app.setGlobalPrefix('api');
-  // 全局异常过滤器
-  app.useGlobalFilters(new AnyExceptionFilter());
-  // 全局校验
-  app.useGlobalPipes(new ValidationPipe());
-  await app.listen(3000);
+    const app = await NestFactory.create(AppModule);
+    // 全局路由前缀
+    app.setGlobalPrefix('api');
+    // 全局异常过滤器
+    app.useGlobalFilters(new AnyExceptionFilter());
+    // 全局校验
+    app.useGlobalPipes(new ValidationPipe());
+    // 全局拦截器
+    app.useGlobalInterceptors(new ResponseTransformInterceptor());
+    const swaggerOpts = new DocumentBuilder()
+        .setTitle('api doc')
+        .setDescription('api description')
+        .addBearerAuth()
+        .build();
+    const document = SwaggerModule.createDocument(app, swaggerOpts);
+    SwaggerModule.setup('doc', app, document);
+    await app.listen(3000);
 }
 bootstrap();
