@@ -24,6 +24,7 @@
     "class-transformer": "^0.1.9",
     "class-validator": "^0.8.5",
     "fastify-formbody": "^2.0.0",
+    "moment": "^2.22.2",
     "mysql": "^2.16.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.0.0",

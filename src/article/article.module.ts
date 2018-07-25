@@ -10,6 +10,4 @@ import {ArticleController} from './article.controller';
     providers: [ArticleService],
     exports: [ArticleService],
 })
-export class ArticleModule {
-    constructor(private readonly articleService: ArticleService) {}
-}
+export class ArticleModule {}
