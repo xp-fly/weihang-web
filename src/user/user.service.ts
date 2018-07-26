@@ -30,11 +30,7 @@ export class UserService {
     async findOneByName(username: string): Promise<UserEntity> {
         const user = this.userRepository.create();
         user.username = username;
-        return await this.userRepository.findOneOrFail({
-            where: {
-                username,
-            },
-        });
+        return await this.userRepository.findOne({username});
     }
 
     async findUserById(id: number): Promise<UserEntity> {
