@@ -1,6 +1,11 @@
-import {Injectable} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {
-    constructor() {}
+    constructor(private readonly userService: UserService) {}
+
+    async validateUser(token: string): Promise<any> {
+        return await this.userService.findOneByToken(token);
+    }
 }
