@@ -1,34 +1,39 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('user')
 export class UserEntity {
-  @PrimaryGeneratedColumn() id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @Column({
-      length: 20,
-  })
-  username: string;
+    @Column({
+        length: 20,
+        unique: true,
+        comment: '用户名',
+    })
+    username: string;
 
-  @Column({
-      length: 18,
-  })
-  password: string;
+    @Column({
+        length: 18,
+        comment: '用户名密码',
+    })
+    password: string;
 
-  @Column({ length: 100, default: '' })
-  desc: string;
+    @Column({
+        length: 100,
+        default: '',
+    })
+    desc: string;
 
-  @Column({
-    name: 'create_time',
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
-  createAt: Date;
+    @Column('timestamp', {
+        name: 'create_time',
+        default: () => 'CURRENT_TIMESTAMP',
+    })
+    createTime: Date;
 
-  @Column({
-    name: 'update_time',
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-    onUpdate: 'CURRENT_TIMESTAMP',
-  })
-  updateAt: Date;
+    @Column('timestamp', {
+        name: 'update_time',
+        default: () => 'CURRENT_TIMESTAMP',
+        onUpdate: 'CURRENT_TIMESTAMP',
+    })
+    updateTime: Date;
 }

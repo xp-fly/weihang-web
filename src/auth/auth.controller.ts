@@ -1,5 +1,6 @@
-import {Controller, Get} from '@nestjs/common';
+import {Body, Controller, Post} from '@nestjs/common';
 import {AuthService} from './auth.service';
+import {AuthLoginDto} from './dto/auth-login.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -7,13 +8,8 @@ export class AuthController {
         private readonly authService: AuthService,
     ) {}
 
-    @Get('token')
-    async createToken(): Promise<any> {
-        return 'access token';
-    }
-
-    @Get('oauth')
-    async createOauthToken(): Promise<any> {
-        return 'oauth token';
+    @Post('token')
+    async createToken(@Body() loginDto: AuthLoginDto): Promise<any> {
+        return await this.authService.createToken(loginDto);
     }
 }

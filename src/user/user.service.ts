@@ -23,14 +23,21 @@ export class UserService {
         return await this.userRepository.save(user);
     }
 
-    async findOneByToken(token: string) {
-        if (token === null || token === '') {
-            return await null;
-        }
-        return '';
-    }
-
     list() {
         return this.userRepository.findAndCount();
+    }
+
+    async findOneByName(username: string): Promise<UserEntity> {
+        const user = this.userRepository.create();
+        user.username = username;
+        return await this.userRepository.findOneOrFail({
+            where: {
+                username,
+            },
+        });
+    }
+
+    async findUserById(id: number): Promise<UserEntity> {
+        return await this.userRepository.findOneOrFail(id);
     }
 }
