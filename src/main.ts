@@ -5,6 +5,7 @@ import {ValidationPipe} from '@nestjs/common';
 import {ResponseTransformInterceptor} from './common/interceptors/response-transform.interceptor';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import {join} from 'path';
+import {AuthGuard} from '@nestjs/passport';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);

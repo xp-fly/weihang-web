@@ -1,11 +1,13 @@
-import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UseGuards} from '@nestjs/common';
 import {ArticleService} from './article.service';
 import {ArticleEntity} from './entity/article.entity';
 import {CreateArticleDto} from './dto/create-article.dto';
 import { ApiUseTags } from '@nestjs/swagger';
+import {AuthGuard} from '@nestjs/passport';
 
 @ApiUseTags('article')
 @Controller('article')
+@UseGuards(AuthGuard('jwt'))
 export class ArticleController {
     constructor(private readonly articleService: ArticleService) {}
     @Get()
