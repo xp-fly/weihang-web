@@ -1,9 +1,10 @@
-import { Controller, UseGuards, Get, Post, Body } from '@nestjs/common';
+import {Controller, Get, Post, Body, UseGuards} from '@nestjs/common';
 import { UserService } from './user.service';
-import { AuthGuard } from '@nestjs/passport';
 import {CreateUserDto} from './dto/create-user.dto';
+import {AuthGuard} from '@nestjs/passport';
 
 @Controller('auth')
+@UseGuards(AuthGuard('jwt'))
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
@@ -13,7 +14,6 @@ export class UserController {
     }
 
     @Get('user')
-    @UseGuards(AuthGuard('bearer'))
     list() {
         return this.userService.list();
     }

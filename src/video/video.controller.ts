@@ -1,7 +1,9 @@
-import {Controller, Delete, FileInterceptor, Get, Param, ParseIntPipe, Post, Query, UploadedFile, UseInterceptors} from '@nestjs/common';
+import {Controller, Delete, FileInterceptor, Get, Param, ParseIntPipe, Post, Query, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
 import {VideoService} from './video.service';
+import {AuthGuard} from '@nestjs/passport';
 
 @Controller('video')
+@UseGuards(AuthGuard('jwt'))
 export class VideoController {
     constructor(private readonly videoService: VideoService) {}
     @Get()
