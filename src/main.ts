@@ -18,7 +18,7 @@ async function bootstrap() {
     // 全局拦截器
     app.useGlobalInterceptors(new ResponseTransformInterceptor());
     // 设置静态目录
-    app.useStaticAssets(join(__dirname, '/public/'));
+    app.useStaticAssets(join(__dirname, '../../weihang_view/dist'));
     const swaggerOpts = new DocumentBuilder()
         .setTitle('api doc')
         .setDescription('api description')
