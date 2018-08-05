@@ -17,8 +17,13 @@ async function bootstrap() {
     app.useGlobalPipes(new ValidationPipe());
     // 全局拦截器
     app.useGlobalInterceptors(new ResponseTransformInterceptor());
-    // 设置静态目录
+    // 使用多次可以设置多个静态目录，设置静态目录
+    // 官网静态目录
     app.useStaticAssets(join(__dirname, '../../weihang_view/dist'));
+    // 后台静态目录
+    app.useStaticAssets(join(__dirname, '../../weihang-admin-view/dist'));
+    // 项目的静态目录
+    app.useStaticAssets(join(__dirname, '/public'));
     const swaggerOpts = new DocumentBuilder()
         .setTitle('api doc')
         .setDescription('api description')

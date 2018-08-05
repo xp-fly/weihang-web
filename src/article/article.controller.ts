@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UseGuards} from '@nestjs/common';
+import {Body, Controller, Delete, Get, HttpException, Param, ParseIntPipe, Post, Put, Query, UseGuards} from '@nestjs/common';
 import {ArticleService} from './article.service';
 import {ArticleEntity} from './entity/article.entity';
 import {CreateArticleDto} from './dto/create-article.dto';
@@ -13,6 +13,11 @@ export class ArticleController {
     @Get()
     async list(@Query() query: object): Promise<ArticleEntity[]> {
         return await this.articleService.list(query);
+    }
+
+    @Get(':id')
+    async findById(@Param('id', new ParseIntPipe()) id: number) {
+        return await this.articleService.findOneById(id);
     }
 
     @Post()

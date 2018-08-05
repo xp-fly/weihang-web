@@ -42,6 +42,8 @@ export class ArticleService {
         const article = this.articleRepository.create();
         article.title = articleDto.title;
         article.content = articleDto.desc;
+        article.publishTime = articleDto.publishTime;
+        article.summary = articleDto.summary;
         // 防止xss攻击
         article.content = xss(articleDto.content, xssOpt);
         return await this.articleRepository.save(article);
@@ -65,7 +67,21 @@ export class ArticleService {
 
     }
 
+    /**
+     * 删除文章
+     * @param {number} id
+     * @returns {Promise<any>}
+     */
     async remove(id: number): Promise<any> {
         return await this.articleRepository.delete(id);
+    }
+
+    /**
+     * 根据ID获取文章
+     * @param {number} id
+     * @returns {Promise<void>}
+     */
+    async findOneById(id: number) {
+        return await this.articleRepository.findOne(id);
     }
 }

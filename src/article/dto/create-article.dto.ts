@@ -6,6 +6,11 @@ export class CreateArticleDto {
 
     desc: string;
 
+    summary: string;
+
+    @IsNotEmpty()
+    publishTime: Date;
+
     @IsNotEmpty()
     content: string;
 }

@@ -17,11 +17,24 @@ export class ArticleEntity {
     })
     desc: string;
 
+    @Column({
+        default: '',
+        comment: '文章摘要',
+    })
+    summary: string;
+
     @Column('longtext', {
         default: '',
         comment: '文章内容',
     })
     content: string;
+
+    @Column('timestamp', {
+        name: 'publish_time',
+        default: null,
+        comment: '发布时间',
+    })
+    publishTime: Date;
 
     @Column('timestamp', {
         name: 'create_time',
