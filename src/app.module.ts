@@ -7,6 +7,7 @@ import {Connection} from 'typeorm';
 import {VideoModule} from './video/video.module';
 import {AuthModule} from './auth/auth.module';
 import {UserModule} from './user/user.module';
+import {TagModule} from './tag/tag.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import {UserModule} from './user/user.module';
       VideoModule,
       UserModule,
       AuthModule,
+      TagModule,
   ],
   controllers: [AppController],
   providers: [AppService],

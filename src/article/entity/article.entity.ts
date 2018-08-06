@@ -1,9 +1,22 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {TagEntity} from '../../tag/entity/tag.entity';
 
 @Entity('article')
 export class ArticleEntity {
     @PrimaryGeneratedColumn()
     id: number;
+
+    @Column('int', {
+        default: 1,
+        comment: '文章类型',
+    })
+    articleType: number;
+
+    @Column('int', {
+        default: 1,
+        comment: '文章状态 1 待审核 2 审核完成',
+    })
+    state: number;
 
     @Column({
         default: '',

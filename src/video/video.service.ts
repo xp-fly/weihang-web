@@ -55,6 +55,11 @@ export class VideoService {
         return await this.videoRepository.save(video);
     }
 
+    /**
+     * 视频列表
+     * @param query
+     * @returns {Promise<any>}
+     */
     async list(query: any): Promise<any> {
         const pageNo = +query.pageNo || 1;
         const limit = +query.pageSize || 10;
@@ -70,7 +75,29 @@ export class VideoService {
         return { count, list };
     }
 
+    /**
+     * 删除视频
+     * @param {number} id
+     * @returns {Promise<any>}
+     */
     async remove(id: number): Promise<any> {
         return await this.videoRepository.delete(id);
+    }
+
+    /**
+     * 编辑，修改视频的状态
+     * @param {number} id
+     * @param {VideoEntity} param
+     * @returns {Promise<any>}
+     */
+    async edit(id: number, param: VideoEntity): Promise<any> {
+        const video = this.videoRepository.create();
+        if (param.state) {
+            video.state = param.state;
+        }
+        if (!Object.keys(video).length) {
+            return [];
+        }
+        return await this.videoRepository.update(id, video);
     }
 }

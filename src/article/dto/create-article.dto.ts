@@ -1,8 +1,11 @@
-import {IsNotEmpty} from 'class-validator';
+import {IsInt, IsNotEmpty} from 'class-validator';
 
 export class CreateArticleDto {
     @IsNotEmpty()
     title: string;
+
+    @IsInt()
+    articleType: number;
 
     desc: string;
 

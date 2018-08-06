@@ -23,6 +23,12 @@ export class ArticleService {
         @InjectRepository(ArticleEntity)
         private readonly articleRepository: Repository<ArticleEntity>,
     ) {}
+
+    /**
+     * 文章列表
+     * @param query
+     * @returns {Promise<any>}
+     */
     async list(query: any): Promise<any> {
         const pageNo = +query.pageNo || 1;
         const limit = +query.pageSize || 10;
@@ -38,6 +44,11 @@ export class ArticleService {
         return { list, count };
     }
 
+    /**
+     * 上传文章
+     * @param {CreateArticleDto} articleDto
+     * @returns {Promise<ArticleEntity>}
+     */
     async add(articleDto: CreateArticleDto): Promise<ArticleEntity> {
         const article = this.articleRepository.create();
         article.title = articleDto.title;
@@ -49,6 +60,12 @@ export class ArticleService {
         return await this.articleRepository.save(article);
     }
 
+    /**
+     * 编辑文章
+     * @param {number} id
+     * @param {ArticleEntity} param
+     * @returns {Promise<any>}
+     */
     async edit(id: number, param: ArticleEntity): Promise<any> {
         const article = this.articleRepository.create();
         if (param.title) {
@@ -59,6 +76,9 @@ export class ArticleService {
         }
         if (param.desc) {
             article.desc = param.desc;
+        }
+        if (param.state) {
+            article.state = param.state;
         }
         if (!Object.keys(article).length) {
             return [];
