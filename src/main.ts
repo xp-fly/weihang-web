@@ -19,7 +19,7 @@ async function bootstrap() {
     app.useGlobalInterceptors(new ResponseTransformInterceptor());
     // 使用多次可以设置多个静态目录，设置静态目录
     // 官网静态目录
-    app.useStaticAssets(join(__dirname, '../../weihang_view/dist'));
+    app.useStaticAssets(join(__dirname, '../../weihang_view/dist/weihang'));
     // 后台静态目录
     app.useStaticAssets(join(__dirname, '../../weihang-admin-view/dist'));
     // 项目的静态目录
