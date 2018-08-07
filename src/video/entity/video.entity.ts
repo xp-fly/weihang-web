@@ -7,6 +7,7 @@ export class VideoEntity {
     id: number;
 
     @Column('int', {
+        name: 'video_type',
         default: 1,
         comment: '视频类型',
     })

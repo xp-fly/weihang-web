@@ -7,6 +7,7 @@ export class ArticleEntity {
     id: number;
 
     @Column('int', {
+        name: 'article_type',
         default: 1,
         comment: '文章类型',
     })
