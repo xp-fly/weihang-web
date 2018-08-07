@@ -1,5 +1,4 @@
 import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
-import {TagEntity} from '../../tag/entity/tag.entity';
 
 @Entity('article')
 export class ArticleEntity {

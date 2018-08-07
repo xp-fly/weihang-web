@@ -1,6 +1,5 @@
-import {Column, Entity, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
-import {ArticleEntity} from '../../article/entity/article.entity';
-import {VideoEntity} from '../../video/entity/video.entity';
+import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {JobEntity} from '../../job/entity/job.entity';
 
 @Entity('tag')
 export class TagEntity {
@@ -35,6 +34,6 @@ export class TagEntity {
     updateTime: Date;
 
     /* 定义关联关系 */
-    /*@ManyToMany(type => ArticleEntity, articles => articles.tags)
-    articles: ArticleEntity[];*/
+    @ManyToMany(type => JobEntity, jobs => jobs.tags)
+    jobs: JobEntity[];
 }
