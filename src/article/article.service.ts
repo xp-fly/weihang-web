@@ -4,6 +4,7 @@ import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
 import {CreateArticleDto} from './dto/create-article.dto';
 import * as xss from 'xss';
+import * as moment from 'moment';
 
 const xssOpt = {
     whiteList: {
@@ -57,6 +58,7 @@ export class ArticleService {
         article.summary = articleDto.summary;
         // 防止xss攻击
         article.content = xss(articleDto.content, xssOpt);
+        article.createTime = new Date();
         return await this.articleRepository.save(article);
     }
 

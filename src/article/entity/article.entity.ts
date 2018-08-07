@@ -42,16 +42,16 @@ export class ArticleEntity {
     })
     content: string;
 
-    @Column('timestamp', {
+    @Column('datetime', {
         name: 'publish_time',
         default: null,
         comment: '发布时间',
     })
     publishTime: Date;
 
-    @Column('timestamp', {
+    @Column('datetime', {
         name: 'create_time',
-        default: () => 'CURRENT_TIMESTAMP',
+        default: null,
     })
     createTime: Date;
 

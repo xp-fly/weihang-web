@@ -24,9 +24,9 @@ export class UserEntity {
     })
     desc: string;
 
-    @Column('timestamp', {
+    @Column('datetime', {
         name: 'create_time',
-        default: () => 'CURRENT_TIMESTAMP',
+        default: null,
     })
     createTime: Date;
 
