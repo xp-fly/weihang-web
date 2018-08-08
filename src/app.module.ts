@@ -8,6 +8,7 @@ import {VideoModule} from './video/video.module';
 import {AuthModule} from './auth/auth.module';
 import {UserModule} from './user/user.module';
 import {TagModule} from './tag/tag.module';
+import {JobModule} from './job/job.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import {TagModule} from './tag/tag.module';
       UserModule,
       AuthModule,
       TagModule,
+      JobModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -2,11 +2,13 @@ import {Injectable} from '@nestjs/common';
 import {Repository} from 'typeorm';
 import {JobEntity} from './entity/job.entity';
 import {CreateJobDto} from './dto/create-job.dto';
+import {InjectRepository} from '@nestjs/typeorm';
 
 @Injectable()
 export class JobService {
     constructor(
-        private readonly jobRepository: Repository<JobEntity>
+        @InjectRepository(JobEntity)
+        private readonly jobRepository: Repository<JobEntity>,
     ) {}
 
     /**

@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Param, ParseIntPipe, Post, Put, Query} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query} from '@nestjs/common';
 import {JobService} from './job.service';
 import {CreateJobDto} from './dto/create-job.dto';
 import {JobEntity} from './entity/job.entity';
@@ -14,6 +14,7 @@ export class JobController {
      * @param {object} query
      * @returns {Promise<any>}
      */
+    @Get()
     async list(
         @Query() query: object,
     ) {
