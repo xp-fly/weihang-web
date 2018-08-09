@@ -52,7 +52,6 @@ export class VideoService {
         const video = this.videoRepository.create();
         video.title = file.originalname;
         video.path = path;
-        video.createTime = new Date();
         return await this.videoRepository.save(video);
     }
 

@@ -1,4 +1,4 @@
-import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 import {JobEntity} from '../../job/entity/job.entity';
 
 @Entity('tag')
@@ -20,16 +20,13 @@ export class TagEntity {
     })
     tagType: number;
 
-    @Column('datetime', {
+    @CreateDateColumn({
         name: 'create_time',
-        default: null,
     })
     createTime: Date;
 
-    @Column('timestamp', {
+    @UpdateDateColumn({
         name: 'update_time',
-        default: () => 'CURRENT_TIMESTAMP',
-        onUpdate: 'CURRENT_TIMESTAMP',
     })
     updateTime: Date;
 

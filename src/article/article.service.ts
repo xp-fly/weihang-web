@@ -58,7 +58,6 @@ export class ArticleService {
         article.summary = articleDto.summary;
         // 防止xss攻击
         article.content = xss(articleDto.content, xssOpt);
-        article.createTime = new Date();
         return await this.articleRepository.save(article);
     }
 

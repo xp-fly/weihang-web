@@ -42,7 +42,7 @@ export class JobController {
     @Put(':id')
     async edit(
         @Param('id', new ParseIntPipe()) id: number,
-        @Body() job: JobEntity,
+        @Body() job: any,
     ) {
         return await this.jobService.edit(id, job);
     }

@@ -6,11 +6,11 @@ export class AnyExceptionFilter implements ExceptionFilter {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
         const request = ctx.getRequest();
-        console.log(exception);
+        const status = exception.getStatus ? exception.getStatus() : 500;
         response
-            .status(exception.getStatus())
+            .status(status)
             .json({
-                statusCode: exception.getStatus(),
+                statusCode: status,
                 timestamp: new Date().toISOString(),
                 path: request.url,
                 message: exception.message,

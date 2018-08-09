@@ -3,12 +3,15 @@ import {Repository} from 'typeorm';
 import {JobEntity} from './entity/job.entity';
 import {CreateJobDto} from './dto/create-job.dto';
 import {InjectRepository} from '@nestjs/typeorm';
+import {TagEntity} from '../tag/entity/tag.entity';
 
 @Injectable()
 export class JobService {
     constructor(
         @InjectRepository(JobEntity)
         private readonly jobRepository: Repository<JobEntity>,
+        @InjectRepository(TagEntity)
+        private readonly tagRepository: Repository<TagEntity>,
     ) {}
 
     /**
@@ -37,8 +40,7 @@ export class JobService {
         const job = this.jobRepository.create();
         job.jobName = jobDto.jobName;
         job.desc = jobDto.desc;
-        job.tags = jobDto.tags;
-        job.createTime = new Date();
+        job.tags = jobDto.tagIds.map(item => (this.tagRepository.create({ id: item })));
         return await this.jobRepository.save(job);
     }
 
@@ -48,7 +50,7 @@ export class JobService {
      * @param {JobEntity} param
      * @returns {Promise<any>}
      */
-    async edit(id: number, param: JobEntity): Promise<any> {
+    async edit(id: number, param: JobEntity & CreateJobDto): Promise<any> {
         const job = this.jobRepository.create();
         if (param.jobName) {
             job.jobName = param.jobName;
@@ -56,8 +58,8 @@ export class JobService {
         if (param.desc) {
             job.desc = param.desc;
         }
-        if (param.tags && param.tags.length) {
-            job.tags = param.tags;
+        if (param.tagIds && param.tagIds.length) {
+            job.tags = param.tagIds.map(item => (this.tagRepository.create({ id: item })));
         }
         if (param.state) {
             job.state = param.state;

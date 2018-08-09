@@ -9,5 +9,5 @@ export class CreateJobDto {
     desc: string;
 
     @IsArray()
-    tags: TagEntity[];
+    tagIds: number[];
 }

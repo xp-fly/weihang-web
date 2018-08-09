@@ -40,7 +40,6 @@ export class TagService {
         const tag = this.tagRepository.create();
         tag.tagName = tagDto.tagName;
         tag.tagType = tagDto.tagType;
-        tag.createTime = new Date();
         return await this.tagRepository.save(tag);
     }
 
