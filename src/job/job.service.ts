@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {HttpException, Injectable} from '@nestjs/common';
 import {Repository} from 'typeorm';
 import {JobEntity} from './entity/job.entity';
 import {CreateJobDto} from './dto/create-job.dto';
@@ -40,7 +40,7 @@ export class JobService {
         const job = this.jobRepository.create();
         job.jobName = jobDto.jobName;
         job.desc = jobDto.desc;
-        job.tags = jobDto.tagIds.map(item => (this.tagRepository.create({ id: item })));
+        job.tag = this.tagRepository.create({ id: jobDto.tagId });
         return await this.jobRepository.save(job);
     }
 
@@ -58,8 +58,8 @@ export class JobService {
         if (param.desc) {
             job.desc = param.desc;
         }
-        if (param.tagIds && param.tagIds.length) {
-            job.tags = param.tagIds.map(item => (this.tagRepository.create({ id: item })));
+        if (param.tagId) {
+            job.tag = this.tagRepository.create({id: param.tagId});
         }
         if (param.state) {
             job.state = param.state;

@@ -1,4 +1,4 @@
-import {Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
+import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 import {TagEntity} from '../../tag/entity/tag.entity';
 
 @Entity('job')
@@ -36,7 +36,7 @@ export class JobEntity {
     updateTime: Date;
 
     /* 定义关联关系 */
-    @ManyToMany(type => TagEntity, tags => tags.jobs)
-    @JoinTable()
-    tags: TagEntity[];
+    @ManyToOne(type => TagEntity)
+    @JoinColumn()
+    tag: TagEntity;
 }

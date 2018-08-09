@@ -16,7 +16,7 @@ export class TagEntity {
     @Column('int', {
         name: 'tag_type',
         default: 1,
-        comment: '标签类型 1 文章标签 2 视频标签 3 职位标签',
+        comment: '标签类型 1 职位标签',
     })
     tagType: number;
 
@@ -29,8 +29,4 @@ export class TagEntity {
         name: 'update_time',
     })
     updateTime: Date;
-
-    /* 定义关联关系 */
-    @ManyToMany(type => JobEntity, jobs => jobs.tags)
-    jobs: JobEntity[];
 }
