@@ -9,7 +9,7 @@
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:dev": "nodemon",
     "prestart:prod": "rm -rf dist && tsc",
-    "start:prod": "npm run prestart:prod && pm2 startOrReload ecosystem.config.js",
+    "start:prod": "pm2 startOrReload ecosystem.config.js",
     "start:hmr": "node dist/server",
     "test": "jest",
     "test:cov": "jest --coverage",
