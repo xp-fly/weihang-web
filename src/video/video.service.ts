@@ -1,11 +1,12 @@
-import {Injectable} from '@nestjs/common';
-import {join} from 'path';
+import {HttpException, Injectable} from '@nestjs/common';
+import {join, resolve} from 'path';
 import {mkdirsSync} from '../utils/mkdir';
 import * as fs from 'fs';
 import moment = require('moment');
 import {InjectRepository} from '@nestjs/typeorm';
 import {VideoEntity} from './entity/video.entity';
-import {Repository} from 'typeorm';
+import {Like, Repository} from 'typeorm';
+import {existsSync, unlinkSync} from 'fs';
 
 const videoDir = join(__dirname, '../public/video');
 
@@ -64,8 +65,16 @@ export class VideoService {
         const pageNo = +query.pageNo || 1;
         const limit = +query.pageSize || 10;
         const offset = (pageNo - 1) * limit;
+        const where: any = {};
+        if (query.state) {
+            where.state = query.state;
+        }
+        if (query.title && query.title.trim()) {
+            where.title = Like(`%${query.title.trim()}%`);
+        }
         const [list, count = 0] = await this.videoRepository
             .createQueryBuilder('video')
+            .where(where)
             .orderBy({
                 'video.id': 'DESC',
             })
@@ -81,6 +90,16 @@ export class VideoService {
      * @returns {Promise<any>}
      */
     async remove(id: number): Promise<any> {
+        const video = await this.videoRepository.findOne(id);
+        if (!video) {
+            throw new HttpException('video not found', 500);
+        }
+        const basePath = resolve(__dirname, '../public');
+        const path = `${basePath}${video.path}`;
+        const exist = existsSync(path);
+        if (exist) {
+            unlinkSync(path);
+        }
         return await this.videoRepository.delete(id);
     }
 

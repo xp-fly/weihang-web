@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {ArticleEntity} from './entity/article.entity';
 import {InjectRepository} from '@nestjs/typeorm';
-import {Repository} from 'typeorm';
+import {Like, Repository} from 'typeorm';
 import {CreateArticleDto} from './dto/create-article.dto';
 import * as xss from 'xss';
 import * as moment from 'moment';
@@ -34,8 +34,16 @@ export class ArticleService {
         const pageNo = +query.pageNo || 1;
         const limit = +query.pageSize || 10;
         const offset = (pageNo - 1) * limit;
+        const where: any = {};
+        if (query.title && query.title.trim()) {
+            where.title = Like(`%${query.title.trim()}%`);
+        }
+        if (query.state) {
+            where.state = query.state;
+        }
         const [list, count = 0] = await this.articleRepository
             .createQueryBuilder('article')
+            .where(where)
             .orderBy({
                 'article.create_time': 'DESC',
             })

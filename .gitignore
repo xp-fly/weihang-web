@@ -10,6 +10,7 @@ package-lock.json
 /src/public/static/
 /src/public/dist/
 /src/public/index.html
+/src/public/video/
 .idea/vcs.xml
 
 # Editor directories and files
