@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {TagEntity} from './entity/tag.entity';
-import {Repository} from 'typeorm';
+import {Like, Repository} from 'typeorm';
 import {InjectRepository} from '@nestjs/typeorm';
 import {CreateTagDto} from './dto/create-tag.dto';
 
@@ -17,17 +17,7 @@ export class TagService {
      * @returns {Promise<object>}
      */
     async list(query: any): Promise<object> {
-        const pageNo = +query.pageNo || 1;
-        const limit = +query.pageSize || 10;
-        const offset = (pageNo - 1) * limit;
-        const [list, count = 0] = await this.tagRepository
-            .createQueryBuilder('tag')
-            .orderBy({
-                'tag.create_time': 'DESC',
-            })
-            .offset(offset)
-            .limit(limit)
-            .getManyAndCount();
+        const [list, count = 0] = await this.getListData(query);
         return { list, count };
     }
 
@@ -70,5 +60,46 @@ export class TagService {
      */
     async remove(id: number): Promise<any> {
         return await this.tagRepository.delete(id);
+    }
+
+    /**
+     * 查询所有标签上护具
+     * @param query
+     * @returns {Promise<any>}
+     */
+    async fetchAll(query: any): Promise<any> {
+         return await this.getListData(query, false);
+    }
+
+    /**
+     * 获取标签数据
+     * @param query
+     * @param {boolean} pagination
+     * @returns {Promise<[TagEntity[] , number] | TagEntity[]>}
+     */
+    async getListData(query: any, pagination = true): Promise<[TagEntity[], number] | TagEntity[]> {
+        const pageNo = +query.pageNo || 1;
+        const limit = +query.pageSize || 10;
+        const offset = (pageNo - 1) * limit;
+        const where: any = {};
+        if (query.tagName && query.tagName.trim()) {
+            where.tagName = Like(`%${query.tagName.trim()}%`);
+        }
+        const tagPromise = this.tagRepository
+            .createQueryBuilder('tag')
+            .where(where)
+            .orderBy({
+                'tag.create_time': 'DESC',
+            });
+        let result: [TagEntity[], number] | TagEntity[];
+        if (pagination) {
+            result = await tagPromise
+                .offset(offset)
+                .limit(limit)
+                .getManyAndCount();
+        } else {
+            result = await tagPromise.getMany();
+        }
+        return result;
     }
 }

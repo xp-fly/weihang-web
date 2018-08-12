@@ -9,6 +9,7 @@ import {AuthModule} from './auth/auth.module';
 import {UserModule} from './user/user.module';
 import {TagModule} from './tag/tag.module';
 import {JobModule} from './job/job.module';
+import {UploadModule} from './upload/upload.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import {JobModule} from './job/job.module';
       AuthModule,
       TagModule,
       JobModule,
+      UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

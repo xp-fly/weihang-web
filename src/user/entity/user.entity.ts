@@ -1,4 +1,4 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
+import {BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 
 @Entity('user')
 export class UserEntity {
@@ -36,4 +36,9 @@ export class UserEntity {
         onUpdate: 'CURRENT_TIMESTAMP',
     })
     updateTime: Date;
+
+    @BeforeInsert()
+    insertCreateTime() {
+        this.createTime = new Date();
+    }
 }

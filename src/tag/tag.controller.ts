@@ -33,4 +33,11 @@ export class TagController {
     ): Promise<any> {
         return await this.tagService.remove(id);
     }
+
+    @Get('/all')
+    async fetchAll(
+        @Query() query: object,
+    ): Promise<TagEntity> {
+        return await this.tagService.fetchAll(query);
+    }
 }

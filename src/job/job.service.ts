@@ -23,11 +23,23 @@ export class JobService {
         const pageNo = +query.pageNo || 1;
         const limit = +query.pageSize || 10;
         const offset = (pageNo - 1) * limit;
-        const [list, count = 0] = await this.jobRepository.findAndCount({
-            relations: ['tag'],
-            skip: offset,
-            take: limit,
-        });
+        const where: any = {};
+        if (query.jobName && query.jobName.trim()) {
+            where.jobName = query.jobName;
+        }
+        if (query.state) {
+            where.state = query.state;
+        }
+        const [list, count = 0] = await this.jobRepository
+            .createQueryBuilder('job')
+            .leftJoinAndSelect('job.tag', 'tag')
+            .where(where)
+            .orderBy({
+                'job.create_time': 'DESC',
+            })
+            .offset(offset)
+            .limit(limit)
+            .getManyAndCount();
         return { list, count };
     }
 

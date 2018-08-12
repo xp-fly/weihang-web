@@ -1,4 +1,4 @@
-import {Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
+import {BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 
 @Entity('article')
 export class ArticleEntity {
@@ -61,4 +61,9 @@ export class ArticleEntity {
         onUpdate: 'CURRENT_TIMESTAMP',
     })
     updateTime: Date;
+
+    @BeforeInsert()
+    insertCreateTime() {
+        this.createTime = new Date();
+    }
 }

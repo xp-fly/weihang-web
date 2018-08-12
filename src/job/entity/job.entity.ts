@@ -1,4 +1,4 @@
-import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
+import {BeforeInsert, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 import {TagEntity} from '../../tag/entity/tag.entity';
 
 @Entity('job')
@@ -38,8 +38,21 @@ export class JobEntity {
     })
     updateTime: Date;
 
+    @Column({
+        name: 'tag_id',
+        comment: '关联标签表外键',
+    })
+    tagId: number;
+
     /* 定义关联关系 */
     @ManyToOne(type => TagEntity)
-    @JoinColumn()
+    @JoinColumn({
+        name: 'tag_id',
+    })
     tag: TagEntity;
+
+    @BeforeInsert()
+    insertCreateTime() {
+        this.createTime = new Date();
+    }
 }

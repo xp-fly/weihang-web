@@ -1,4 +1,4 @@
-import {Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
+import {BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 
 @Entity('video')
 export class VideoEntity {
@@ -38,4 +38,9 @@ export class VideoEntity {
         onUpdate: 'CURRENT_TIMESTAMP',
     })
     updateTime: Date;
+
+    @BeforeInsert()
+    insertCreateTime() {
+        this.createTime = new Date();
+    }
 }

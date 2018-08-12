@@ -1,4 +1,4 @@
-import {Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
+import {BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 import {JobEntity} from '../../job/entity/job.entity';
 
 @Entity('tag')
@@ -32,4 +32,9 @@ export class TagEntity {
         onUpdate: 'CURRENT_TIMESTAMP',
     })
     updateTime: Date;
+
+    @BeforeInsert()
+    insertCreateTime() {
+        this.createTime = new Date();
+    }
 }
