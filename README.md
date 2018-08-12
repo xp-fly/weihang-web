@@ -2,7 +2,8 @@
 
 ## Description
 
-description
+nestJs + typeOrm + typescript + restful + mysql
+开发的后台应用
 
 ## Installation
 
