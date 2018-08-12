@@ -24,13 +24,16 @@ export class UserEntity {
     })
     desc: string;
 
-    @CreateDateColumn({
+    @Column('datetime', {
         name: 'create_time',
+        default: null,
     })
     createTime: Date;
 
-    @UpdateDateColumn({
+    @Column('timestamp', {
         name: 'update_time',
+        default: () => 'CURRENT_TIMESTAMP',
+        onUpdate: 'CURRENT_TIMESTAMP',
     })
     updateTime: Date;
 }

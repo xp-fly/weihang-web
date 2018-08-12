@@ -24,7 +24,7 @@ export class JobService {
         const limit = +query.pageSize || 10;
         const offset = (pageNo - 1) * limit;
         const [list, count = 0] = await this.jobRepository.findAndCount({
-            relations: ['tags'],
+            relations: ['tag'],
             skip: offset,
             take: limit,
         });
