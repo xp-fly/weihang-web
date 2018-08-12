@@ -1,8 +1,12 @@
-import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UseGuards} from '@nestjs/common';
 import {TagService} from './tag.service';
 import {TagEntity} from './entity/tag.entity';
 import {CreateTagDto} from './dto/create-tag.dto';
+import {AuthGuard} from '@nestjs/passport';
+import {ApiUseTags} from '@nestjs/swagger';
 
+@ApiUseTags('tag')
+@UseGuards(AuthGuard('jwt'))
 @Controller('tag')
 export class TagController {
     constructor(

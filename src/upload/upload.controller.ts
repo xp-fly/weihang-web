@@ -1,6 +1,10 @@
-import {Controller, FileInterceptor, Post, UploadedFile, UseInterceptors} from '@nestjs/common';
+import {Controller, FileInterceptor, Post, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
 import {UploadService} from './upload.service';
+import {AuthGuard} from '@nestjs/passport';
+import {ApiUseTags} from '@nestjs/swagger';
 
+@ApiUseTags('upload')
+@UseGuards(AuthGuard('jwt'))
 @Controller('upload')
 export class UploadController {
     constructor(

@@ -32,8 +32,10 @@ async function bootstrap() {
         .setBasePath('api')
         .addBearerAuth()
         .build();
-    const document = SwaggerModule.createDocument(app, swaggerOpts);
-    SwaggerModule.setup('doc', app, document);
+    const document = SwaggerModule.createDocument(app, swaggerOpts)
+    if (process.env.NODE_ENV !== 'production') {
+        SwaggerModule.setup('doc', app, document);
+    }
     await app.listen(3000);
 }
 bootstrap();

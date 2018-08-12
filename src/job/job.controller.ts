@@ -1,8 +1,12 @@
-import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UseGuards} from '@nestjs/common';
 import {JobService} from './job.service';
 import {CreateJobDto} from './dto/create-job.dto';
 import {JobEntity} from './entity/job.entity';
+import {AuthGuard} from '@nestjs/passport';
+import {ApiUseTags} from '@nestjs/swagger';
 
+@ApiUseTags('job')
+@UseGuards(AuthGuard('jwt'))
 @Controller('job')
 export class JobController {
     constructor(

@@ -6,9 +6,11 @@ import {
 import {VideoService} from './video.service';
 import {AuthGuard} from '@nestjs/passport';
 import {VideoEntity} from './entity/video.entity';
+import {ApiUseTags} from '@nestjs/swagger';
 
-@Controller('video')
+@ApiUseTags('video')
 @UseGuards(AuthGuard('jwt'))
+@Controller('video')
 export class VideoController {
     constructor(private readonly videoService: VideoService) {}
 
