@@ -7,6 +7,9 @@ export class CreateArticleDto {
     @IsInt()
     articleType: number;
 
+    @IsNotEmpty()
+    articleImage: string;
+
     desc: string;
 
     summary: string;

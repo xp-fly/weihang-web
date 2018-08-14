@@ -64,6 +64,7 @@ export class ArticleService {
         article.content = articleDto.desc;
         article.publishTime = articleDto.publishTime;
         article.summary = articleDto.summary;
+        article.articleImage = articleDto.articleImage;
         // 防止xss攻击
         article.content = xss(articleDto.content, xssOpt);
         return await this.articleRepository.save(article);
@@ -88,6 +89,9 @@ export class ArticleService {
         }
         if (param.state) {
             article.state = param.state;
+        }
+        if (param.articleImage) {
+            article.articleImage = param.articleImage;
         }
         if (!Object.keys(article).length) {
             return [];

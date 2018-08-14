@@ -12,6 +12,13 @@ export class ArticleEntity {
     })
     articleType: number;
 
+    @Column({
+        name: 'article_image',
+        default: '',
+        comment: '文章封面图片',
+    })
+    articleImage: string;
+
     @Column('int', {
         default: 1,
         comment: '文章状态 1 待审核 2 审核完成',
