@@ -44,7 +44,6 @@ export class ArticleEntity {
     summary: string;
 
     @Column('longtext', {
-        default: '',
         comment: '文章内容',
     })
     content: string;
