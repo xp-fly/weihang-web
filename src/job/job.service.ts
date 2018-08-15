@@ -52,6 +52,7 @@ export class JobService {
         const job = this.jobRepository.create();
         job.jobName = jobDto.jobName;
         job.desc = jobDto.desc;
+        job.experience = jobDto.experience;
         job.tag = this.tagRepository.create({ id: jobDto.tagId });
         return await this.jobRepository.save(job);
     }
@@ -75,6 +76,9 @@ export class JobService {
         }
         if (param.state) {
             job.state = param.state;
+        }
+        if (param.experience) {
+            job.experience = param.experience;
         }
         if (!Object.keys(job).length) {
             return [];

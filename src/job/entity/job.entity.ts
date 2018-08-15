@@ -13,6 +13,12 @@ export class JobEntity {
     })
     jobName: string;
 
+    @Column({
+        default: '',
+        comment: '职位经验要求',
+    })
+    experience: string;
+
     @Column('int', {
         default: 1,
         comment: '职位状态 1 未审核 2 审核通过 3 结束',

@@ -12,6 +12,14 @@ export class CreateJobDto {
     jobName: string;
 
     @ApiModelProperty({
+        description: '经验',
+        required: true,
+        type: 'string',
+    })
+    @IsNotEmpty()
+    experience: string;
+
+    @ApiModelProperty({
         description: '岗位描述',
         type: 'string',
     })
