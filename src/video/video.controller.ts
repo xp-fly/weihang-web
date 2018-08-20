@@ -1,12 +1,12 @@
 import {
     Body,
     Controller, Delete, FileInterceptor, Get, Param, ParseIntPipe, Post, Put, Query, UploadedFile, UseGuards,
-    UseInterceptors
 } from '@nestjs/common';
 import {VideoService} from './video.service';
 import {AuthGuard} from '@nestjs/passport';
 import {VideoEntity} from './entity/video.entity';
 import {ApiUseTags} from '@nestjs/swagger';
+import {CreateVideoDto} from './dto/create-video.dto';
 
 @ApiUseTags('video')
 @UseGuards(AuthGuard('jwt'))
@@ -26,13 +26,14 @@ export class VideoController {
 
     /**
      * 上传视频
-     * @param file
+     * @param crateDto
      * @returns {Promise<any>}
      */
     @Post()
-    @UseInterceptors(FileInterceptor('file'))
-    async add(@UploadedFile() file): Promise<any> {
-        return await this.videoService.add(file);
+    async add(
+        @Body() crateDto: CreateVideoDto,
+    ): Promise<any> {
+        return await this.videoService.add(crateDto);
     }
 
     /**

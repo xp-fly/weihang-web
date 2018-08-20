@@ -24,6 +24,7 @@ async function bootstrap() {
     app.useStaticAssets(join(__dirname, '../../weihang-admin-view/dist'));
     // 项目的静态目录
     app.useStaticAssets(join(__dirname, '/public'));
+    app.useStaticAssets(join(__dirname, '../static'));
     const swaggerOpts = new DocumentBuilder()
         .setTitle('api doc')
         .setDescription('api description')

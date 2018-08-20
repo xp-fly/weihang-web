@@ -16,7 +16,7 @@ export class UploadService {
         if (!type) {
             throw new HttpException('type is required', 500);
         }
-        const fileDir = join(__dirname, `../public/${type}`);
+        const fileDir = join(__dirname, `../../static/${type}`);
         const today = moment().format('YYYY/MM/DD');
         const mkdirDir = join(fileDir, today);
         await mkdirsSync(mkdirDir);

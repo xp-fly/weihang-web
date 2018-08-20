@@ -19,4 +19,13 @@ export class UploadController {
         const type: string = 'img';
         return await this.uploadService.saveFile(file, type);
     }
+
+    @Post('video')
+    @UseInterceptors(FileInterceptor('file'))
+    async uploadVideo(
+        @UploadedFile() file: any,
+    ): Promise<any> {
+        const type: string = 'video';
+        return await this.uploadService.saveFile(file, type);
+    }
 }

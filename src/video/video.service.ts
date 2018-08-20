@@ -7,6 +7,7 @@ import {InjectRepository} from '@nestjs/typeorm';
 import {VideoEntity} from './entity/video.entity';
 import {Like, Repository} from 'typeorm';
 import {existsSync, unlinkSync} from 'fs';
+import {CreateVideoDto} from './dto/create-video.dto';
 
 const videoDir = join(__dirname, '../public/video');
 
@@ -45,14 +46,11 @@ export class VideoService {
 
     /**
      * 上传视频
-     * @param file
+     * @param crateDto
      * @returns {Promise<any>}
      */
-    async add(file: any): Promise<any> {
-        const { path } = await this.saveFile(file);
-        const video = this.videoRepository.create();
-        video.title = file.originalname;
-        video.path = path;
+    async add(crateDto: CreateVideoDto): Promise<any> {
+        const video = this.videoRepository.create(crateDto);
         return await this.videoRepository.save(video);
     }
 

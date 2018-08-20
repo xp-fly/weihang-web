@@ -13,6 +13,7 @@ package-lock.json
 /src/public/video/
 /src/public/img/
 .idea/vcs.xml
+/static/
 
 # Editor directories and files
 .idea
