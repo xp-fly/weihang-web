@@ -108,10 +108,7 @@ export class VideoService {
      * @returns {Promise<any>}
      */
     async edit(id: number, param: VideoEntity): Promise<any> {
-        const video = this.videoRepository.create();
-        if (param.state) {
-            video.state = param.state;
-        }
+        const video = this.videoRepository.create(param);
         if (!Object.keys(video).length) {
             return [];
         }

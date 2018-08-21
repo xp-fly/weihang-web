@@ -12,6 +12,9 @@ export class VideoEntity {
     })
     videoType: number;
 
+    @Column()
+    imageUrl: string;
+
     @Column('int', {
         default: 1,
         comment: '视频状态 1 待审核 2 审核完成',
