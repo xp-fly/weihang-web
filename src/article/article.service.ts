@@ -45,7 +45,7 @@ export class ArticleService {
             .createQueryBuilder('article')
             .where(where)
             .orderBy({
-                'article.create_time': 'DESC',
+                'article.publishTime': 'DESC',
             })
             .offset(offset)
             .limit(limit)

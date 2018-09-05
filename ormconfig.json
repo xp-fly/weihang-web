@@ -14,7 +14,7 @@
     "src/subscriber/**.entity{.ts,.js}",
     "dist/subscriber/**.entity{.ts,.js}"
   ],
-  "synchronize": true,
+  "synchronize": false,
   "debug": false,
   "logging": true
 }
