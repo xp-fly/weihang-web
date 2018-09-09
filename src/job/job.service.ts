@@ -30,6 +30,9 @@ export class JobService {
         if (query.state) {
             where.state = query.state;
         }
+        if (query.tagId) {
+            where.tagId = query.tagId;
+        }
         const [list, count = 0] = await this.jobRepository
             .createQueryBuilder('job')
             .leftJoinAndSelect('job.tag', 'tag')
