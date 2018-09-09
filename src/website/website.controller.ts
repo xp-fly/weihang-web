@@ -18,11 +18,11 @@ export class WebsiteController {
      * @returns {Promise<any>}
      */
     @Get('article')
-    async fetchArticle(): Promise<any> {
-        const param = {
-            state: 2,
-        };
-        return await this.articleService.list(param);
+    async fetchArticle(
+        @Query() query: any,
+    ): Promise<any> {
+        query.state = 2;
+        return await this.articleService.list(query);
     }
 
     /**
@@ -30,11 +30,11 @@ export class WebsiteController {
      * @returns {Promise<any>}
      */
     @Get('video')
-    async fetchVideo(): Promise<any> {
-        const param = {
-            state: 2,
-        };
-        return await this.videoService.list(param);
+    async fetchVideo(
+        @Query() query: any,
+    ): Promise<any> {
+        query.state = 2;
+        return await this.videoService.list(query);
     }
 
     /**
@@ -42,10 +42,10 @@ export class WebsiteController {
      * @returns {Promise<any>}
      */
     @Get('job')
-    async fetchJob(): Promise<any> {
-        const param = {
-            state: 2,
-        };
-        return await this.jobService.list(param);
+    async fetchJob(
+        @Query() query: any,
+    ): Promise<any> {
+        query.state = 2;
+        return await this.jobService.list(query);
     }
 }
