@@ -65,10 +65,11 @@ export class TagService {
     /**
      * 查询所有标签上护具
      * @param query
+     * @param order
      * @returns {Promise<any>}
      */
-    async fetchAll(query: any): Promise<any> {
-         return await this.getListData(query, false);
+    async fetchAll(query: any, order: any = {}): Promise<any> {
+         return await this.getListData(query, false, order);
     }
 
     /**
@@ -77,7 +78,7 @@ export class TagService {
      * @param {boolean} pagination
      * @returns {Promise<[TagEntity[] , number] | TagEntity[]>}
      */
-    async getListData(query: any, pagination = true): Promise<[TagEntity[], number] | TagEntity[]> {
+    async getListData(query: any, pagination = true, order: any = {}): Promise<[TagEntity[], number] | TagEntity[]> {
         const pageNo = +query.pageNo || 1;
         const limit = +query.pageSize || 10;
         const offset = (pageNo - 1) * limit;
@@ -91,6 +92,11 @@ export class TagService {
             .orderBy({
                 'tag.create_time': 'DESC',
             });
+        if (order && order.id) {
+            tagPromise.orderBy({
+                'tag.id': order.id,
+            });
+        }
         let result: [TagEntity[], number] | TagEntity[];
         if (pagination) {
             result = await tagPromise

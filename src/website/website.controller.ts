@@ -3,6 +3,7 @@ import {ArticleService} from '../article/article.service';
 import {VideoService} from '../video/video.service';
 import {JobService} from '../job/job.service';
 import {ApiUseTags} from '@nestjs/swagger';
+import {TagService} from '../tag/tag.service';
 
 @ApiUseTags('website')
 @Controller('website')
@@ -11,6 +12,7 @@ export class WebsiteController {
         private readonly articleService: ArticleService,
         private readonly videoService: VideoService,
         private readonly jobService: JobService,
+        private readonly tagService: TagService,
     ) {}
 
     /**
@@ -47,5 +49,12 @@ export class WebsiteController {
     ): Promise<any> {
         query.state = 2;
         return await this.jobService.list(query);
+    }
+
+    @Get('tag')
+    async fetchTag(
+        @Query() query: any,
+    ): Promise<any> {
+        return await this.tagService.fetchAll(query, {id: 'ASC'});
     }
 }
