@@ -6,9 +6,20 @@ import {ResponseTransformInterceptor} from './common/interceptors/response-trans
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import {join} from 'path';
 import {AuthGuard} from '@nestjs/passport';
+import * as compression from 'compression';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
+    app.use(compression({
+        filter: (req, res) => {
+            if (req.headers['x-no-compression']) {
+                // don't compress responses with this request header
+                return false;
+            }
+            // fallback to standard filter function
+            return compression.filter(req, res);
+        },
+    }))
     // 全局路由前缀
     app.setGlobalPrefix('api');
     // 全局异常过滤器
