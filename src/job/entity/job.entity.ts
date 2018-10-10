@@ -26,6 +26,7 @@ export class JobEntity {
     state: number;
 
     @Column({
+        length: 4096,
         default: '',
         comment: '职位描述',
     })
