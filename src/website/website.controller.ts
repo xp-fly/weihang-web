@@ -5,6 +5,7 @@ import {JobService} from '../job/job.service';
 import {ApiUseTags} from '@nestjs/swagger';
 import {TagService} from '../tag/tag.service';
 import {ConfigService} from '../config/config.service';
+import {PartnerService} from '../config/partner.service';
 
 @ApiUseTags('website')
 @Controller('website')
@@ -15,6 +16,7 @@ export class WebsiteController {
         private readonly jobService: JobService,
         private readonly tagService: TagService,
         private readonly configService: ConfigService,
+        private readonly partnerService: PartnerService,
     ) {}
 
     /**
@@ -74,5 +76,14 @@ export class WebsiteController {
             Logger.error(e);
         }
         return config;
+    }
+
+    @Get('partner')
+    async fetchPartner(@Query() query: any) {
+        const [list, count] = await this.partnerService.list(query);
+        return {
+            count,
+            list,
+        };
     }
 }

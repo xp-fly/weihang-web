@@ -11,6 +11,7 @@ import {TagModule} from './tag/tag.module';
 import {JobModule} from './job/job.module';
 import {UploadModule} from './upload/upload.module';
 import {WebsiteModule} from './website/website.module';
+import {ConfigModule} from './config/config.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import {WebsiteModule} from './website/website.module';
       JobModule,
       UploadModule,
       WebsiteModule,
+      ConfigModule,
   ],
   controllers: [AppController],
   providers: [AppService],
